@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sql c1="0">
+    <d key="testKet">test-content</d>
+    <d key="testKey">test-content-2</d>
+</sql>
+
