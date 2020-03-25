@@ -31,7 +31,7 @@ public class ReflectFactory {
      * @throws IllegalAccessException
      * @throws InstantiationException
      */
-    public Vehicle create(String type) throws IllegalAccessException, InstantiationException {
+    private Vehicle create(String type) throws IllegalAccessException, InstantiationException {
         Class productClass = (Class) registerVehicle.get(type);
         return (Vehicle) productClass.newInstance();
     }
