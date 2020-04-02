@@ -132,10 +132,8 @@ class BinaryTree {
                 } else {
                     parent.right = null;
                 }
-            }
-
-            //当前节点有左子节点,没有右子节点,用左子节点代替当前节点
-            if (current.left != null && current.right == null) {
+            } else if (current.left != null && current.right == null) {
+                //当前节点有左子节点,没有右子节点,用左子节点代替当前节点
                 if (current == root) {
                     root = current.left;
                 } else if (isLeftChild) {
@@ -143,10 +141,8 @@ class BinaryTree {
                 } else {
                     parent.right = current.left;
                 }
-            }
-
-
-            if (current.left == null && current.right != null) {
+            } else if (current.left == null && current.right != null) {
+                //当前节点右子节点，没有左子节点，用右子节点代替当前节点
                 if (current == root) {
                     root = current.right;
                 } else if (isLeftChild) {
@@ -154,9 +150,48 @@ class BinaryTree {
                 } else {
                     parent.right = current.right;
                 }
+            } else {
+                Node successor = getSuccessor(current);
+                if (current == root) {
+                    root = successor;
+                } else if (isLeftChild) {
+                    parent.left = successor;
+                } else {
+                    parent.right = successor;
+                }
+                successor.left = current.left;
             }
+
+
         }
         return true;
+    }
+
+    /**
+     * @param delNode
+     * @return
+     */
+    private Node getSuccessor(Node delNode) {
+        //后继节点父节点
+        Node successorParent = delNode;
+        //后继节点
+        Node successor = delNode;
+        //获取右子节点
+        Node current = delNode.right;
+
+        //循环获取左子节点,直到找不到左子节点
+        while (current != null) {
+            successorParent = successor;
+            successor = current;
+            current = current.left;
+        }
+        //后继节点不等于删除节点的右子节点，后继节点的父节点左子节点为后继节点的右节点
+        //后继节点的右节点为删除节点的又节点
+        if (successor != delNode.right) {
+            successorParent.left = successor.right;
+            successor.right = delNode.right;
+        }
+        return successor;
     }
 
     /**
