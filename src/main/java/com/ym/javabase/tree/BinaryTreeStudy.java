@@ -13,16 +13,25 @@ public class BinaryTreeStudy {
     public static void main(String[] args) {
         BinaryTree binaryTree = new BinaryTree();
         binaryTree.insert(1, 11.1);
-        binaryTree.insert(2, 22.2);
-        binaryTree.insert(3, 33.3);
+        binaryTree.insert(7, 33.3);
+        binaryTree.insert(3, 77.7);
+        binaryTree.insert(8, 44.4);
+        binaryTree.insert(6, 66.6);
+        binaryTree.insert(10, 22.2);
+        binaryTree.insert(11, 222.2);
 
         Node node = binaryTree.find(4);
 
         System.out.println(node);
 
-        binaryTree.inOrder(binaryTree.root);
 
         System.out.println(binaryTree.getMax());
+
+        //删除
+        binaryTree.delete(8);
+        System.out.println(binaryTree.root);
+        binaryTree.inOrder(binaryTree.root);
+
     }
 
 }
@@ -49,6 +58,9 @@ class Node {
     Node right;
 }
 
+/**
+ * 二叉树
+ */
 @Slf4j(topic = "binaryTree")
 class BinaryTree {
     /**
@@ -100,14 +112,14 @@ class BinaryTree {
         }
     }
 
-    public boolean delte(int key) {
+    public boolean delete(int key) {
         Node current = root;
         Node parent = root;
 
         /**
          * 是否左节点
          */
-        boolean isLeftChild;
+        boolean isLeftChild = false;
 
         while (current.id != key) {
             parent = current;
@@ -122,52 +134,55 @@ class BinaryTree {
             if (current == null) {
                 return false;
             }
-
-            //当前节点没有子节点直接删除
-            if (current.left == null && current.right == null) {
-                if (current == root) {
-                    root = null;
-                } else if (isLeftChild) {
-                    parent.left = null;
-                } else {
-                    parent.right = null;
-                }
-            } else if (current.left != null && current.right == null) {
-                //当前节点有左子节点,没有右子节点,用左子节点代替当前节点
-                if (current == root) {
-                    root = current.left;
-                } else if (isLeftChild) {
-                    parent.left = current.left;
-                } else {
-                    parent.right = current.left;
-                }
-            } else if (current.left == null && current.right != null) {
-                //当前节点右子节点，没有左子节点，用右子节点代替当前节点
-                if (current == root) {
-                    root = current.right;
-                } else if (isLeftChild) {
-                    parent.left = current.right;
-                } else {
-                    parent.right = current.right;
-                }
-            } else {
-                Node successor = getSuccessor(current);
-                if (current == root) {
-                    root = successor;
-                } else if (isLeftChild) {
-                    parent.left = successor;
-                } else {
-                    parent.right = successor;
-                }
-                successor.left = current.left;
-            }
-
-
         }
+
+        //当前节点没有子节点直接删除
+        if (current.left == null && current.right == null) {
+            if (current == root) {
+                root = null;
+            } else if (isLeftChild) {
+                parent.left = null;
+            } else {
+                parent.right = null;
+            }
+        } else if (current.left != null && current.right == null) {
+            //当前节点有左子节点,没有右子节点,用左子节点代替当前节点
+            if (current == root) {
+                root = current.left;
+            } else if (isLeftChild) {
+                parent.left = current.left;
+            } else {
+                parent.right = current.left;
+            }
+        } else if (current.left == null && current.right != null) {
+            //当前节点右子节点，没有左子节点，用右子节点代替当前节点
+            if (current == root) {
+                root = current.right;
+            } else if (isLeftChild) {
+                parent.left = current.right;
+            } else {
+                parent.right = current.right;
+            }
+        } else {
+            //当前节点既有左子节点又有右子节点
+            Node successor = getSuccessor(current);
+            if (current == root) {
+                root = successor;
+            } else if (isLeftChild) {
+                parent.left = successor;
+            } else {
+                parent.right = successor;
+            }
+            successor.left = current.left;
+        }
+
+
         return true;
     }
 
     /**
+     * 获取后继节点
+     *
      * @param delNode
      * @return
      */
