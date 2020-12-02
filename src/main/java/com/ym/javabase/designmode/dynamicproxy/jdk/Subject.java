@@ -6,5 +6,5 @@ package com.ym.javabase.designmode.dynamicproxy.jdk;
  * @date 2020/4/3
  */
 public interface Subject {
-    public void hello(String param);
+    void hello(String param);
 }

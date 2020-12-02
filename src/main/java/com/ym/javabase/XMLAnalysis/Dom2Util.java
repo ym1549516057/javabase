@@ -54,9 +54,7 @@ public class Dom2Util {
             Document document = saxReader.read(classPathResource.getURL());
             Map<String, Object> map = mapTo(document);
 //            System.out.println(map);
-        } catch (DocumentException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (DocumentException | IOException e) {
             e.printStackTrace();
         }
 

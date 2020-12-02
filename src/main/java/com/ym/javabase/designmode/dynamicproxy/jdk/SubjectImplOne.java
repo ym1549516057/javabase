@@ -4,13 +4,12 @@ import org.springframework.stereotype.Component;
 
 /**
  * @author YM
- * @note 接口实现
- * @date 2020/4/3
+ * @date 2020/12/2
  */
 @Component
-public class SubjectIml implements Subject{
+public class SubjectImplOne implements Subject {
     @Override
     public void hello(String param) {
-        System.out.println(param);
+        System.out.println("one");
     }
 }
