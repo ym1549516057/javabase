@@ -6,6 +6,11 @@ package com.ym.javabase.java8.myinterface;
  */
 public class MyInterfaceImpl implements MyInterface,MyInterfaceTwo {
     @Override
+    public String methodOne(String value) {
+        return null;
+    }
+
+    @Override
     public void methodThree() {
         System.out.println("overwrite default method three");
     }
